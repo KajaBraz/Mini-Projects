@@ -1,5 +1,6 @@
 from prepare_texts import get_texts, read, preprocess, stemming
 from words_occurrences import get_dict, bows, most_common, tf_idf
+from show_most_similar_books import show_similaryty_chart
 
 
 def discover_similar_books():
@@ -23,10 +24,12 @@ def discover_similar_books():
     # print(bags_of_words[0])
 
     common_words_0 = most_common(0, bags_of_words, stemmed)
-    print(common_words_0)
+    # print(common_words_0)
 
     books_similarities = tf_idf(bags_of_words, titles)
-    print(books_similarities)
+    # print(books_similarities)
+
+    show_similaryty_chart(books_similarities, 'CoralReefs')
 
 
 if __name__ == '__main__':
