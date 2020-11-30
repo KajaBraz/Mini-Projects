@@ -1,4 +1,5 @@
-from gensim import corpora
+from gensim import corpora, similarities
+from gensim.models import TfidfModel
 import pandas as pd
 
 
@@ -19,3 +20,10 @@ def most_common(book_ind, bag_of_words, stems):
     occurences.insert(2, 'tokens', tokens)
     occ_sorted = occurences.sort_values(by=['occurences'], ascending=False, inplace=False)
     return occ_sorted
+
+
+def tf_idf(bag_of_words, titles):
+    model = TfidfModel(bag_of_words)
+    similar = similarities.MatrixSimilarity(model[bag_of_words])
+    similar_df = pd.DataFrame(similar, index=titles, columns=titles)
+    return similar_df
