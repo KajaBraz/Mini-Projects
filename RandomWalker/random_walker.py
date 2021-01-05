@@ -34,5 +34,6 @@ def random_walker(n_steps, folder_name):
 if __name__ == '__main__':
     for i in range(10):
         random_walker(1000, 'random_walks_realisations')
+        random_walker(500, 'random_walks_realisations')
         random_walker(100, 'random_walks_realisations')
         random_walker(10, 'random_walks_realisations')

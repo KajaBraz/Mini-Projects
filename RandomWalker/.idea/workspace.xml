@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="bd158e6f-43f8-4b75-a911-d963a7781f81" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../AnalogClock/debug.log" beforeDir="false" afterPath="$PROJECT_DIR$/../AnalogClock/debug.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/RandomWalker.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/random_walker.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/random_walks_realisations/random_walk_1000_steps.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/random_walks_realisations/random_walk_1000_steps_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/random_walks_realisations/random_walk_1000_steps_2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/random_walks_realisations/random_walk_1000_steps_3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/random_walks_realisations/random_walk_1000_steps_4.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/random_walks_realisations/random_walk_1000_steps_5.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/random_walks_realisations/random_walk_1000_steps_6.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/random_walks_realisations/random_walk_1000_steps_7.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/random_walks_realisations/random_walk_1000_steps_8.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/random_walks_realisations/random_walk_1000_steps_9.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/random_walks_realisations/random_walk_100_steps.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/random_walks_realisations/random_walk_100_steps_11.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/random_walks_realisations/random_walk_100_steps_13.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/random_walks_realisations/random_walk_100_steps_15.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/random_walks_realisations/random_walk_100_steps_17.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/random_walks_realisations/random_walk_100_steps_19.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/random_walks_realisations/random_walk_100_steps_3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/random_walks_realisations/random_walk_100_steps_5.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/random_walks_realisations/random_walk_100_steps_7.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/random_walks_realisations/random_walk_100_steps_9.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/random_walks_realisations/random_walk_10_steps.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/random_walks_realisations/random_walk_10_steps_11.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/random_walks_realisations/random_walk_10_steps_14.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/random_walks_realisations/random_walk_10_steps_17.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/random_walks_realisations/random_walk_10_steps_20.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/random_walks_realisations/random_walk_10_steps_23.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/random_walks_realisations/random_walk_10_steps_26.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/random_walks_realisations/random_walk_10_steps_29.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/random_walks_realisations/random_walk_10_steps_5.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/random_walks_realisations/random_walk_10_steps_8.png" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectId" id="1mczVg0e9SQjCgA9SMVoCLaB4mN" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+  </component>
+  <component name="RunManager">
+    <configuration name="random_walker" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="RandomWalker" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/random_walker.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.random_walker" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="bd158e6f-43f8-4b75-a911-d963a7781f81" name="Default Changelist" comment="" />
+      <created>1609807692424</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1609807692424</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="WindowStateProjectService">
+    <state width="1493" height="41" key="GridCell.Tab.0.bottom" timestamp="1609813944611">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1493" height="41" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1609813944611" />
+    <state width="1493" height="41" key="GridCell.Tab.0.center" timestamp="1609813944611">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1493" height="41" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1609813944611" />
+    <state width="1493" height="41" key="GridCell.Tab.0.left" timestamp="1609813944611">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1493" height="41" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1609813944611" />
+    <state width="1493" height="41" key="GridCell.Tab.0.right" timestamp="1609813944611">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1493" height="41" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1609813944611" />
+  </component>
+</project>
