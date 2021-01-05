@@ -37,3 +37,4 @@ if __name__ == '__main__':
         random_walker(500, 'random_walks_realisations')
         random_walker(100, 'random_walks_realisations')
         random_walker(10, 'random_walks_realisations')
+    random_walker(10000, 'random_walks_realisations')
