@@ -32,13 +32,3 @@ def syntax_parsing(pos_tagged):
     vp_chunked_text = [vp_chunk_parser.parse(sentence) for sentence in pos_tagged]
 
     return np_chunked_text, vp_chunked_text
-
-
-if __name__ == '__main__':
-    dorian_gray = read_text('texts/dorian_gray.txt')
-    illiad = read_text('texts/the_iliad.txt')
-    pos_tagged = pos_tagging(word_sentence_tokenize(dorian_gray))
-    parsed_np, parsed_vp = syntax_parsing(pos_tagged)
-    print(pos_tagged[0:5])
-    print(parsed_np[0:5])
-    print(parsed_vp[0:5])
