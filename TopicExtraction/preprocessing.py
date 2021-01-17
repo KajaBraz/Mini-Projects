@@ -5,12 +5,11 @@ from collections import Counter
 import re
 
 
-def part_of_speech(word):
+def part_of_speech(word: str) -> str:
     synonyms = wordnet.synsets(word)
     pos_count = Counter()
     for pos in ['n', 'v', 'a', 'r']:
         pos_count[pos] = len([synonym for synonym in synonyms if synonym.pos() == pos])
-
     return pos_count.most_common(1)[0][0]
 
 
