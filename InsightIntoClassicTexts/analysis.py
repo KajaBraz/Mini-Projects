@@ -1,4 +1,4 @@
-from prepare_chunks import read_text, pos_tagging, word_sentence_tokenize, syntax_parsing
+from prepare_chunks import read_text, pos_tagging, word_sentence_tokenize, syntax_parsing, get_wordcloud
 from get_most_common_chunks import chunk_counter
 import os
 
@@ -21,3 +21,4 @@ if __name__ == '__main__':
     texts = ['texts/dorian_gray.txt', 'texts/pinocchio.txt', 'texts/the_iliad.txt', 'texts/frankenstein.txt']
     for title in texts:
         get_insight(title)
+        get_wordcloud(title)

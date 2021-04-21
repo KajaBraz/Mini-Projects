@@ -1,5 +1,8 @@
+from matplotlib import pyplot as plt
 from nltk.tokenize import PunktSentenceTokenizer, word_tokenize
 from nltk import pos_tag, RegexpParser
+from sklearn.feature_extraction._stop_words import ENGLISH_STOP_WORDS
+from wordcloud import WordCloud
 
 
 def read_text(path) -> str:
@@ -32,3 +35,11 @@ def syntax_parsing(pos_tagged):
     vp_chunked_text = [vp_chunk_parser.parse(sentence) for sentence in pos_tagged]
 
     return np_chunked_text, vp_chunked_text
+
+
+def get_wordcloud(path):
+    text = read_text(path)
+    text_cloud = WordCloud(stopwords=ENGLISH_STOP_WORDS).generate(text)
+    plt.imshow(text_cloud)
+    plt.axis('off')
+    plt.savefig(path[:-4] + '_wordcloud.png')
