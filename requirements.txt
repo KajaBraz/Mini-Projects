@@ -1,7 +1,9 @@
 nltk==3.5
-pandas==1.0.4
-gensim==3.8.3
+many_stop_words==0.2.2
 matplotlib==3.2.1
-numpy==1.18.4
+pandas==1.0.4
 wordcloud==1.8.0
-scikit_learn==0.24.1
+gensim==3.8.3
+numpy==1.18.4
+beautifulsoup4==4.9.3
+scikit_learn==0.24.2
