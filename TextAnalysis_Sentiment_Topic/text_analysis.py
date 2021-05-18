@@ -42,9 +42,12 @@ def analyze_subjectivity(subjectivity: float) -> str:
 if __name__ == '__main__':
     my_url = 'https://www.tuttosport.com/news/calcio/coppa-italia/2021/05/13-81655553/' \
              'juve-atalanta_la_finale_di_coppa_italia_con_4300_spettatori'
-    content = prepare_url_text.get_url_content(my_url)
-    my_text, text_lang = prepare_url_text.get_text_and_lang(content)
-    get_cloud(my_text, text_lang)
+    # content = prepare_url_text.get_url_content(my_url)
+    # my_text, text_lang = prepare_url_text.get_text_and_lang(content)
+    title, plain_text = prepare_url_text.get_title_and_text(my_url)
+    my_text = title+plain_text
+    print(my_text)
+    get_cloud(my_text)
     text_polarity, text_subjectivity = get_sentiment_scores(my_text)
     print(text_polarity, text_subjectivity)
     sentiment = analyze_sentiment(text_polarity)
