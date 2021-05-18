@@ -5,13 +5,14 @@ import many_stop_words
 import prepare_url_text
 
 
-def get_cloud(text: str, language_code: str = ''):
+def get_cloud(text: str, page_name: str, language_code: str = ''):
     available_languages = set(many_stop_words.available_languages)
     if language_code in available_languages:
-        wordcloud = WordCloud(stopwords=many_stop_words.get_stop_words(language_code)).generate(text)
+        wordcloud = WordCloud(stopwords=many_stop_words.get_stop_words(language_code), include_numbers=True).generate(
+            text)
     else:
-        wordcloud = WordCloud().generate(text)
-    wordcloud.to_file('cloud.png')
+        wordcloud = WordCloud(include_numbers=True).generate(text)
+    wordcloud.to_file(page_name + '_' + 'cloud.png')
 
 
 def get_sentiment_scores(text: str) -> (float, float):
@@ -44,10 +45,15 @@ if __name__ == '__main__':
              'juve-atalanta_la_finale_di_coppa_italia_con_4300_spettatori'
     # content = prepare_url_text.get_url_content(my_url)
     # my_text, text_lang = prepare_url_text.get_text_and_lang(content)
-    title, plain_text = prepare_url_text.get_title_and_text(my_url)
-    my_text = title+plain_text
-    print(my_text)
-    get_cloud(my_text)
+    url_data = prepare_url_text.get_url_components(my_url)
+    text_components = prepare_url_text.get_main_content(url_data)
+    clean_text = prepare_url_text.remove_noise(' '.join(text_components))
+    collocations_to_consider = ['serie a', 'coppa italia', 'reggio emilia', 'foro italico']
+    my_text = prepare_url_text.add_personalized_collocations(collocations_to_consider, clean_text)
+    lang = prepare_url_text.get_language(my_text)
+    print(lang, my_text)
+    website = prepare_url_text.get_website_name(url_data)
+    get_cloud(my_text, website, lang)
     text_polarity, text_subjectivity = get_sentiment_scores(my_text)
     print(text_polarity, text_subjectivity)
     sentiment = analyze_sentiment(text_polarity)
