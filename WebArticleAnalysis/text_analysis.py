@@ -5,14 +5,16 @@ import many_stop_words
 import prepare_url_text
 
 
-def get_cloud(text: str, page_name: str, language_code: str = ''):
+def get_cloud(text: str, page_name: str, language_code: str, personalized_stopwords: {str}):
     available_languages = set(many_stop_words.available_languages)
     if language_code in available_languages:
-        wordcloud = WordCloud(stopwords=many_stop_words.get_stop_words(language_code), include_numbers=True).generate(
+        my_stopwords = many_stop_words.get_stop_words(language_code)
+        my_stopwords = my_stopwords.union(personalized_stopwords)
+        wordcloud = WordCloud(stopwords=my_stopwords, include_numbers=True).generate(
             text)
     else:
-        wordcloud = WordCloud(include_numbers=True).generate(text)
-    wordcloud.to_file(page_name + '_' + 'cloud.png')
+        wordcloud = WordCloud(stopwords=personalized_stopwords, include_numbers=True).generate(text)
+    wordcloud.to_file(page_name.replace(' ', '_') + '_' + 'cloud.png')
 
 
 def get_sentiment_scores(text: str) -> (float, float):
@@ -53,7 +55,7 @@ if __name__ == '__main__':
     lang = prepare_url_text.get_language(my_text)
     print(lang, my_text)
     website = prepare_url_text.get_website_name(url_data)
-    get_cloud(my_text, website, lang)
+    # get_cloud(my_text, website, lang)
     text_polarity, text_subjectivity = get_sentiment_scores(my_text)
     print(text_polarity, text_subjectivity)
     sentiment = analyze_sentiment(text_polarity)

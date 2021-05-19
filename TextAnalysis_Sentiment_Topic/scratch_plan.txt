@@ -1,7 +1,0 @@
-- read link's content
-- discover language
-- analyse text, get key facts and findings
-- discover the sentiment
-- discover the topic
-- provide entity recognition
-- display findings in html
