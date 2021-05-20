@@ -1,3 +1,7 @@
+from collections import Counter
+
+from nltk import word_tokenize
+from sklearn.feature_extraction.text import CountVectorizer
 from textblob import TextBlob
 from wordcloud import WordCloud
 import many_stop_words
@@ -5,12 +9,18 @@ import many_stop_words
 import prepare_url_text
 
 
-def get_cloud(text: str, page_name: str, language_code: str, personalized_stopwords: {str}):
+def get_stopwords(language_code: str, extra_stopwords: {str}) -> {str}:
     available_languages = set(many_stop_words.available_languages)
     if language_code in available_languages:
         my_stopwords = many_stop_words.get_stop_words(language_code)
-        my_stopwords = my_stopwords.union(personalized_stopwords)
-        wordcloud = WordCloud(stopwords=my_stopwords, include_numbers=True).generate(
+        return my_stopwords.union(extra_stopwords)
+
+
+def get_cloud(text: str, page_name: str, language_code: str, personalized_stopwords: {str}):
+    available_languages = set(many_stop_words.available_languages)
+    if language_code in available_languages:
+        # my_stopwords = many_stop_words.get_stop_words(language_code)
+        wordcloud = WordCloud(stopwords=personalized_stopwords, include_numbers=True).generate(
             text)
     else:
         wordcloud = WordCloud(stopwords=personalized_stopwords, include_numbers=True).generate(text)
@@ -42,6 +52,26 @@ def analyze_subjectivity(subjectivity: float) -> str:
     return 'factual information'
 
 
+def get_most_frequent_words(text: str, lang_code: str, extra_stopwords: {str}, most_common_n: int) -> {str: int}:
+    my_stopwords = list(get_stopwords(lang_code, extra_stopwords))
+    words = text.split(' ')
+    meaningful_words = [word for word in words if word not in my_stopwords]
+    bow = Counter(meaningful_words)
+    return bow.most_common(most_common_n)
+
+
+def count_words(clear_text: str, lang_code: str, extra_stopwords: {str}) -> {str: int}:
+    my_stopwords = get_stopwords(lang_code, extra_stopwords)
+    all_words = clear_text.split(' ')
+    all_unique_words = set(all_words)
+    words_no_stopwords = [True for word in all_words if word not in my_stopwords]
+    unique_words_no_stopwords = [True for word in all_unique_words if word not in my_stopwords]
+    counts = {'all_words': len(all_words), 'all_unique_words': len(all_unique_words),
+              'words_no_stopwords': len(words_no_stopwords),
+              'unique_words_no_stopwords': len(unique_words_no_stopwords)}
+    return counts
+
+
 if __name__ == '__main__':
     my_url = 'https://www.tuttosport.com/news/calcio/coppa-italia/2021/05/13-81655553/' \
              'juve-atalanta_la_finale_di_coppa_italia_con_4300_spettatori'
@@ -53,12 +83,13 @@ if __name__ == '__main__':
     collocations_to_consider = ['serie a', 'coppa italia', 'reggio emilia', 'foro italico']
     my_text = prepare_url_text.add_personalized_collocations(collocations_to_consider, clean_text)
     lang = prepare_url_text.get_language(my_text)
-    print(lang, my_text)
-    website = prepare_url_text.get_website_name(url_data)
-    # get_cloud(my_text, website, lang)
-    text_polarity, text_subjectivity = get_sentiment_scores(my_text)
-    print(text_polarity, text_subjectivity)
-    sentiment = analyze_sentiment(text_polarity)
-    print(sentiment)
-    subjectivity_level = analyze_subjectivity(text_subjectivity)
-    print(subjectivity_level)
+    # print(lang, my_text)
+    # website = prepare_url_text.get_website_name(url_data)
+    # # get_cloud(my_text, website, lang)
+    # text_polarity, text_subjectivity = get_sentiment_scores(my_text)
+    # print(text_polarity, text_subjectivity)
+    # sentiment = analyze_sentiment(text_polarity)
+    # print(sentiment)
+    # subjectivity_level = analyze_subjectivity(text_subjectivity)
+    # print(subjectivity_level)
+    get_most_frequent_words(my_text, lang, {'siervo', 'tennis', 'tratta'}, 10)

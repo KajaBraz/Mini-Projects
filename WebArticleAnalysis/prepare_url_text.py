@@ -37,7 +37,6 @@ def get_language(text: str) -> str:
 
 
 def remove_noise(text: str) -> str:
-    # no_special_chars = re.sub(r'\W', ' ', text.lower().strip())
     no_special_chars = re.sub(r'[^\w%€$]', ' ', text.lower().strip())
     return re.sub(r'\s\s+', ' ', no_special_chars)
 
@@ -46,7 +45,7 @@ def add_personalized_collocations(collocation_list: [str], text: str) -> str:
     text_updated = text
     for collocation in collocation_list:
         joined = collocation.lower().replace(' ', '_')
-        text_updated = text_updated.replace(collocation, joined)
+        text_updated = text_updated.replace(collocation.lower(), joined)
     return text_updated
 
 
