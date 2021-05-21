@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>WebArticleAnalysis</title>
+</head>
+<body>
+<h1>Web Article Analysis</h1>
+<form action="{{ url_for('get_data')}}" method="POST">
+    <label for="link">Paste your link:</label>
+    <input type="text" name="link"><br><br>
+    <label for="stop_words">Add special words to be omitted (comma separated):</label>
+    <input type="text" name="stop_words"><br><br>
+    <label for="collocations">Add your collocations (comma separated):</label>
+    <input type="text" name="collocations"><br><br>
+    <input type="submit">
+</form>
+</body>
+</html>

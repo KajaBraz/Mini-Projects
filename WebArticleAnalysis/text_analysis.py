@@ -1,11 +1,12 @@
 from collections import Counter
 
-from nltk import word_tokenize
+from nltk import word_tokenize, SnowballStemmer
 from sklearn.feature_extraction.text import CountVectorizer
 from textblob import TextBlob
 from wordcloud import WordCloud
 import many_stop_words
 
+import languages
 import prepare_url_text
 
 
@@ -14,6 +15,13 @@ def get_stopwords(language_code: str, extra_stopwords: {str}) -> {str}:
     if language_code in available_languages:
         my_stopwords = many_stop_words.get_stop_words(language_code)
         return my_stopwords.union(extra_stopwords)
+
+
+def stem_text(text: str, lang_code: str) -> [str]:
+    tokens = word_tokenize(text)
+    stemmer = SnowballStemmer(languages.languages[lang_code])
+    stems = [stemmer.stem(token) for token in tokens]
+    return stems
 
 
 def get_cloud(text: str, page_name: str, language_code: str, personalized_stopwords: {str}):
@@ -66,9 +74,11 @@ def count_words(clear_text: str, lang_code: str, extra_stopwords: {str}) -> {str
     all_unique_words = set(all_words)
     words_no_stopwords = [True for word in all_words if word not in my_stopwords]
     unique_words_no_stopwords = [True for word in all_unique_words if word not in my_stopwords]
+    unique_stems = set(stem_text(clear_text, lang_code))
     counts = {'all_words': len(all_words), 'all_unique_words': len(all_unique_words),
               'words_no_stopwords': len(words_no_stopwords),
-              'unique_words_no_stopwords': len(unique_words_no_stopwords)}
+              'unique_words_no_stopwords': len(unique_words_no_stopwords),
+              'unique_stems': len(unique_stems)}
     return counts
 
 

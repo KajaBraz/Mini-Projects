@@ -49,8 +49,8 @@ def add_personalized_collocations(collocation_list: [str], text: str) -> str:
     return text_updated
 
 
-def get_website_name(url_components: dict) -> str:
-    return url_components['sitename']
+def get_website_name_and_title(url_components: dict) -> (str, str):
+    return url_components['sitename'], url_components['title']
 
 
 if __name__ == '__main__':
