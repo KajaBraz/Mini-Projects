@@ -1,13 +1,10 @@
 from collections import Counter
-
 from nltk import word_tokenize, SnowballStemmer
 from sklearn.feature_extraction.text import CountVectorizer
 from textblob import TextBlob
 from wordcloud import WordCloud
 import many_stop_words
-
 import languages
-import prepare_url_text
 
 
 def get_stopwords(language_code: str, extra_stopwords: {str}) -> {str}:
@@ -70,36 +67,21 @@ def get_most_frequent_words(text: str, lang_code: str, extra_stopwords: {str}, m
 
 def count_words(clear_text: str, lang_code: str, extra_stopwords: {str}) -> {str: int}:
     my_stopwords = get_stopwords(lang_code, extra_stopwords)
+    stemmed_stopwords = stem_text(' '.join(my_stopwords), lang_code)
     all_words = clear_text.split(' ')
     all_unique_words = set(all_words)
     words_no_stopwords = [True for word in all_words if word not in my_stopwords]
     unique_words_no_stopwords = [True for word in all_unique_words if word not in my_stopwords]
-    unique_stems = set(stem_text(clear_text, lang_code))
-    counts = {'all_words': len(all_words), 'all_unique_words': len(all_unique_words),
+    all_stems = stem_text(clear_text, lang_code)
+    all_unique_stems = set(stem_text(clear_text, lang_code))
+    stems_no_stopwords = [True for word in all_stems if word not in stemmed_stopwords]
+    unique_stems_no_stopwords = [True for word in all_unique_stems if word not in stemmed_stopwords]
+    counts = {'all_words': len(all_words),
+              'all_unique_words': len(all_unique_words),
               'words_no_stopwords': len(words_no_stopwords),
               'unique_words_no_stopwords': len(unique_words_no_stopwords),
-              'unique_stems': len(unique_stems)}
+              'all_stems': len(all_stems),
+              'all_unique_stems': len(all_unique_stems),
+              'stems_no_stopwords': len(stems_no_stopwords),
+              'unique_stems_no_stopwords': len(unique_stems_no_stopwords)}
     return counts
-
-
-if __name__ == '__main__':
-    my_url = 'https://www.tuttosport.com/news/calcio/coppa-italia/2021/05/13-81655553/' \
-             'juve-atalanta_la_finale_di_coppa_italia_con_4300_spettatori'
-    # content = prepare_url_text.get_url_content(my_url)
-    # my_text, text_lang = prepare_url_text.get_text_and_lang(content)
-    url_data = prepare_url_text.get_url_components(my_url)
-    text_components = prepare_url_text.get_main_content(url_data)
-    clean_text = prepare_url_text.remove_noise(' '.join(text_components))
-    collocations_to_consider = ['serie a', 'coppa italia', 'reggio emilia', 'foro italico']
-    my_text = prepare_url_text.add_personalized_collocations(collocations_to_consider, clean_text)
-    lang = prepare_url_text.get_language(my_text)
-    # print(lang, my_text)
-    # website = prepare_url_text.get_website_name(url_data)
-    # # get_cloud(my_text, website, lang)
-    # text_polarity, text_subjectivity = get_sentiment_scores(my_text)
-    # print(text_polarity, text_subjectivity)
-    # sentiment = analyze_sentiment(text_polarity)
-    # print(sentiment)
-    # subjectivity_level = analyze_subjectivity(text_subjectivity)
-    # print(subjectivity_level)
-    get_most_frequent_words(my_text, lang, {'siervo', 'tennis', 'tratta'}, 10)
