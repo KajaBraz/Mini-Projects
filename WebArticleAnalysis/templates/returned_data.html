@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>WebArticleAnalysis</title>
+</head>
+<body>
+<h1>Web Article Analysis</h1>
+{% if data %}
+  <h3>{{data.cloud}}</h3>
+  <img src={{data.cloud}} alt="cloud" width="500" height="600"/>
+  <h3>LANGUAGE</h3>
+  <div> {{data.language}} </div>
+  <h3>POLARITY</h3>
+  <div> {{data.text_polarity}} </div>
+  <h3>SUBJECTIVITY</h3>
+  <div> {{data.text_subjectivity}} </div>
+  <h3>SENTIMENT</h3>
+  <div> {{data.sentiment}} </div>
+  <div> {{data.subjectivity_level}} </div>
+  <h3>MOST COMMON WORDS</h3>
+  <div> {{data.most_common}} </div>
+  <h3>WORD COUNTS</h3>
+  <div> {{data.word_counts}} </div>
+{% else %}
+  <h3>No data</h3>
+{% endif %}
+</body>
+</html>

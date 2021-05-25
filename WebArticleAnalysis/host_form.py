@@ -10,8 +10,9 @@ def get_data():
         url = flask.request.form.get('link')
         extra_stopwords = flask.request.form.get('stop_words')
         collocations = flask.request.form.get('collocations')
-        get_details(url)
-        return 'Your data has been successfully sent!'
+        data = get_details(url, collocations, extra_stopwords)
+        # return 'Your data has been successfully sent!'
+        return flask.render_template('returned_data.html',data=data)
     return flask.render_template('form.html')
 
 

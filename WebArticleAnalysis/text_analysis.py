@@ -15,10 +15,12 @@ def get_stopwords(language_code: str, extra_stopwords: {str}) -> {str}:
 
 
 def stem_text(text: str, lang_code: str) -> [str]:
-    tokens = word_tokenize(text)
-    stemmer = SnowballStemmer(languages.languages[lang_code])
-    stems = [stemmer.stem(token) for token in tokens]
-    return stems
+    if lang_code in languages.languages.keys():
+        tokens = word_tokenize(text)
+        stemmer = SnowballStemmer(languages.languages[lang_code])
+        stems = [stemmer.stem(token) for token in tokens]
+        return stems
+    return {}
 
 
 def get_cloud(text: str, page_name: str, language_code: str, personalized_stopwords: {str}):
@@ -29,7 +31,9 @@ def get_cloud(text: str, page_name: str, language_code: str, personalized_stopwo
             text)
     else:
         wordcloud = WordCloud(stopwords=personalized_stopwords, include_numbers=True).generate(text)
-    wordcloud.to_file(page_name.replace(' ', '_') + '_' + 'cloud.png')
+    path = 'cloud_' + page_name.replace(' ', '_') + '_' + '.png'
+    wordcloud.to_file(path)
+    return path
 
 
 def get_sentiment_scores(text: str) -> (float, float):
