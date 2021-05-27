@@ -7,8 +7,8 @@
 <body>
 <h1>Web Article Analysis</h1>
 {% if data %}
-  <h3>{{data.cloud}}</h3>
-  <img src={{data.cloud}} alt="cloud" width="500" height="600"/>
+<!--  <h3>{{data.cloud}}</h3>-->
+<!--  <img src={{data.cloud}} alt="cloud" width="500" height="600"/>-->
   <h3>LANGUAGE</h3>
   <div> {{data.language}} </div>
   <h3>POLARITY</h3>
@@ -22,6 +22,10 @@
   <div> {{data.most_common}} </div>
   <h3>WORD COUNTS</h3>
   <div> {{data.word_counts}} </div>
+  <h3>ENTITY-LABEL PAIRS</h3>
+  <div> {{data.ner_pairs}} </div>
+  <h3>LABEL COUNTS</h3>
+  <div> {{data.label_counts}} </div>
 {% else %}
   <h3>No data</h3>
 {% endif %}

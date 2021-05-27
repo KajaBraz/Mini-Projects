@@ -1,10 +1,16 @@
+import re
+from pprint import pprint
 from collections import Counter
 from nltk import word_tokenize, SnowballStemmer
 from sklearn.feature_extraction.text import CountVectorizer
+from spacy.kb import Path
 from textblob import TextBlob
 from wordcloud import WordCloud
 import many_stop_words
 import languages
+import spacy
+import xx_ent_wiki_sm
+import en_core_web_sm
 
 
 def get_stopwords(language_code: str, extra_stopwords: {str}) -> {str}:
@@ -31,7 +37,12 @@ def get_cloud(text: str, page_name: str, language_code: str, personalized_stopwo
             text)
     else:
         wordcloud = WordCloud(stopwords=personalized_stopwords, include_numbers=True).generate(text)
-    path = 'cloud_' + page_name.replace(' ', '_') + '_' + '.png'
+
+    png_title = re.sub(r'[\W\s]', '_', page_name)
+    if png_title[-1] == '_':
+        png_title = png_title[:-1]
+
+    path = 'cloud_' + png_title + '.png'
     wordcloud.to_file(path)
     return path
 
@@ -89,3 +100,23 @@ def count_words(clear_text: str, lang_code: str, extra_stopwords: {str}) -> {str
               'stems_no_stopwords': len(stems_no_stopwords),
               'unique_stems_no_stopwords': len(unique_stems_no_stopwords)}
     return counts
+
+
+def get_and_save_ner(unprocessed_text: str, lang_code: str, doc_title: str):
+    if lang_code == 'en':
+        nlp = en_core_web_sm.load()
+    else:
+        nlp = xx_ent_wiki_sm.load()
+    doc = nlp(unprocessed_text)
+    entity_label_pairs = [(x.text, x.label_) for x in doc.ents]
+    label_counts = Counter([x.label_ for x in doc.ents])
+
+    html_title = re.sub(r'[\W\s]', '_', doc_title)
+    if html_title[-1] == '_':
+        html_title = html_title[:-1]
+    # ner_text = spacy.displacy.serve(doc, style='ent')
+    ner_text = spacy.displacy.render(doc, style='ent')
+    with open(f'html_{html_title}.html', 'w', encoding='utf-8') as html_file:
+        html_file.write(ner_text)
+
+    return entity_label_pairs, label_counts

@@ -51,24 +51,3 @@ def add_personalized_collocations(collocation_list: [str], text: str) -> str:
 
 def get_website_name_and_title(url_components: dict) -> (str, str):
     return url_components['sitename'], url_components['title']
-
-
-if __name__ == '__main__':
-    my_url = 'https://www.tuttosport.com/news/calcio/coppa-italia/2021/05/13-81655553/' \
-             'juve-atalanta_la_finale_di_coppa_italia_con_4300_spettatori'
-    # content = get_url_content(my_url)
-    # print(content[:10])
-    # my_text, text_lang = get_text_and_lang(content)
-    # print(text_lang, my_text[:150])
-
-    page_components = get_url_components(my_url)
-    print(page_components)
-    title, intro, plain_text = get_main_content(page_components)
-    print(title)
-    print(plain_text)
-    clean_text = remove_noise(title + ' ' + intro + ' ' + plain_text)
-    print(clean_text)
-    text_with_collocations = add_personalized_collocations(['serie a', 'coppa italia', 'reggio emilia'], clean_text)
-    print(text_with_collocations)
-    lang = get_language(title + plain_text)
-    print(lang)

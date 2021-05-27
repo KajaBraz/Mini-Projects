@@ -1,3 +1,5 @@
+from pprint import pprint
+
 import prepare_url_text
 import text_analysis
 
@@ -6,7 +8,8 @@ def get_details(my_url: str, desired_collocations: [str] = None, extra_stopwords
     text_insight = {}
     url_data = prepare_url_text.get_url_components(my_url)
     text_components = prepare_url_text.get_main_content(url_data)
-    clean_text = prepare_url_text.remove_noise(' '.join(text_components))
+    unprocessed_text = '.'.join(text_components)
+    clean_text = prepare_url_text.remove_noise(unprocessed_text)
 
     if desired_collocations is None:
         desired_collocations = []
@@ -23,9 +26,7 @@ def get_details(my_url: str, desired_collocations: [str] = None, extra_stopwords
 
     personalized_stopwords = text_analysis.get_stopwords(lang, extra_stopwords)
     website, title = prepare_url_text.get_website_name_and_title(url_data)
-    cloud_name = prepare_url_text.remove_noise(website) + '_' + prepare_url_text.remove_noise(title)
-    cloud_name = cloud_name.replace(' ', '_')
-    cloud_path = text_analysis.get_cloud(my_text, cloud_name, lang, personalized_stopwords)
+    cloud_path = text_analysis.get_cloud(my_text, title, lang, personalized_stopwords)
     text_insight['cloud'] = cloud_path
     text_polarity, text_subjectivity = text_analysis.get_sentiment_scores(my_text)
     print('text_polarity:', text_polarity, '; text_subjectivity:', text_subjectivity)
@@ -41,12 +42,19 @@ def get_details(my_url: str, desired_collocations: [str] = None, extra_stopwords
     text_insight['subjectivity_level'] = subjectivity_level
 
     most_common = text_analysis.get_most_frequent_words(my_text, lang, personalized_stopwords, 10)
-    print('most common words: ', most_common)
+    print('most common words:')
+    pprint(most_common)
     text_insight['most_common'] = most_common
 
     word_counts = text_analysis.count_words(my_text, lang, personalized_stopwords)
-    print(word_counts)
+    pprint(word_counts)
     text_insight['word_counts'] = word_counts
+
+    ner_pairs, label_counts = text_analysis.get_and_save_ner(unprocessed_text, lang, text_components[0])
+    pprint(ner_pairs[:10])
+    pprint(label_counts.most_common(5))
+    text_insight['ner_pairs'] = ner_pairs
+    text_insight['label_counts'] = label_counts
 
     return text_insight
 
@@ -65,3 +73,7 @@ if __name__ == '__main__':
     print('------------------------------------------------------------')
     get_details('https://podroze.onet.pl/aktualnosci/wlochy-emilia-romania-przygotowana-na-sezon-turystyczny/894hnk6',
                 ['Emilia Romania'])
+    print('------------------------------------------------------------')
+    get_details(
+        'https://www.gazzetta.it/Calcio/Serie-A/Juventus/25-05-2021/partita-del-cuore-diretta-live-4101331690263.shtml',
+        None, {'serie a'})
