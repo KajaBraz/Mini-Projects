@@ -1,13 +1,10 @@
-import re
-from pprint import pprint
 from collections import Counter
 from nltk import word_tokenize, SnowballStemmer
-from sklearn.feature_extraction.text import CountVectorizer
-from spacy.kb import Path
 from textblob import TextBlob
 from wordcloud import WordCloud
 import many_stop_words
 import languages
+import re
 import spacy
 import xx_ent_wiki_sm
 import en_core_web_sm
@@ -26,23 +23,23 @@ def stem_text(text: str, lang_code: str) -> [str]:
         stemmer = SnowballStemmer(languages.languages[lang_code])
         stems = [stemmer.stem(token) for token in tokens]
         return stems
-    return {}
+    return []
 
 
 def get_cloud(text: str, page_name: str, language_code: str, personalized_stopwords: {str}):
     available_languages = set(many_stop_words.available_languages)
     if language_code in available_languages:
         # my_stopwords = many_stop_words.get_stop_words(language_code)
-        wordcloud = WordCloud(stopwords=personalized_stopwords, include_numbers=True).generate(
+        wordcloud = WordCloud(stopwords=personalized_stopwords, include_numbers=True, width=600, height=400).generate(
             text)
     else:
         wordcloud = WordCloud(stopwords=personalized_stopwords, include_numbers=True).generate(text)
 
-    png_title = re.sub(r'[\W\s]', '_', page_name)
+    png_title = re.sub(r'[\W\s]+', '_', page_name)
     if png_title[-1] == '_':
         png_title = png_title[:-1]
 
-    path = 'cloud_' + png_title + '.png'
+    path = f'static/images/{png_title}.png'
     wordcloud.to_file(path)
     return path
 
@@ -114,9 +111,10 @@ def get_and_save_ner(unprocessed_text: str, lang_code: str, doc_title: str):
     html_title = re.sub(r'[\W\s]', '_', doc_title)
     if html_title[-1] == '_':
         html_title = html_title[:-1]
+    html_title = f'static/labelled_texts/html_{html_title}.html'
     # ner_text = spacy.displacy.serve(doc, style='ent')
     ner_text = spacy.displacy.render(doc, style='ent')
-    with open(f'html_{html_title}.html', 'w', encoding='utf-8') as html_file:
+    with open(html_title, 'w', encoding='utf-8') as html_file:
         html_file.write(ner_text)
 
-    return entity_label_pairs, label_counts
+    return entity_label_pairs, label_counts, ner_text, html_title

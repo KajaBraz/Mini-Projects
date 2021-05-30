@@ -28,6 +28,7 @@ def get_details(my_url: str, desired_collocations: [str] = None, extra_stopwords
     website, title = prepare_url_text.get_website_name_and_title(url_data)
     cloud_path = text_analysis.get_cloud(my_text, title, lang, personalized_stopwords)
     text_insight['cloud'] = cloud_path
+
     text_polarity, text_subjectivity = text_analysis.get_sentiment_scores(my_text)
     print('text_polarity:', text_polarity, '; text_subjectivity:', text_subjectivity)
     text_insight['text_polarity'] = text_polarity
@@ -50,11 +51,16 @@ def get_details(my_url: str, desired_collocations: [str] = None, extra_stopwords
     pprint(word_counts)
     text_insight['word_counts'] = word_counts
 
-    ner_pairs, label_counts = text_analysis.get_and_save_ner(unprocessed_text, lang, text_components[0])
+    stems = text_analysis.stem_text(my_text, lang)
+
+    ner_pairs, label_counts, ner_text, html_path = text_analysis.get_and_save_ner(unprocessed_text, lang,
+                                                                                  text_components[0])
     pprint(ner_pairs[:10])
     pprint(label_counts.most_common(5))
     text_insight['ner_pairs'] = ner_pairs
     text_insight['label_counts'] = label_counts
+    text_insight['ner_text'] = ner_text
+    text_insight['html_path'] = html_path
 
     return text_insight
 
@@ -77,3 +83,5 @@ if __name__ == '__main__':
     get_details(
         'https://www.gazzetta.it/Calcio/Serie-A/Juventus/25-05-2021/partita-del-cuore-diretta-live-4101331690263.shtml',
         None, {'serie a'})
+    print('------------------------------------------------------------')
+    get_details('https://thevision.com/innovazione/italia-programmatori-donne/')
