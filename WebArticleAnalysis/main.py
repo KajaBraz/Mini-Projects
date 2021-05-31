@@ -27,6 +27,8 @@ def get_details(my_url: str, desired_collocations: [str] = None, extra_stopwords
     personalized_stopwords = text_analysis.get_stopwords(lang, extra_stopwords)
     website, title = prepare_url_text.get_website_name_and_title(url_data)
     cloud_path = text_analysis.get_cloud(my_text, title, lang, personalized_stopwords)
+    text_insight['website'] = website
+    text_insight['title'] = title
     text_insight['cloud'] = cloud_path
 
     text_polarity, text_subjectivity = text_analysis.get_sentiment_scores(my_text)

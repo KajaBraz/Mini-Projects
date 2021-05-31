@@ -10,7 +10,7 @@ def get_data():
         url = flask.request.form.get('link')
         extra_stopwords = flask.request.form.get('stop_words')
         collocations = flask.request.form.get('collocations')
-        data = get_details(url, collocations, extra_stopwords)
+        data = get_details(url, [collocations], {extra_stopwords})
         return flask.render_template('returned_data.html', data=data)
     return flask.render_template('form.html')
 
