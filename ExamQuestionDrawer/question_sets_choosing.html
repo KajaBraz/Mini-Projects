@@ -1,0 +1,61 @@
+<html>
+
+<style>
+    .footer {
+        position: fixed;
+        bottom: 0;
+        margin: 50px;
+    }
+
+    .tiles {
+        display: grid;
+        grid-template-columns: repeat(14, auto);
+    }
+
+    .tile {
+        background-color: rgb(127, 255, 127);
+        border: 1px solid rgba(0, 0, 0, 0.8);
+        padding: 20px;
+        font-size: 30px;
+        text-align: center;
+    }
+
+    .questions {
+        font-size: xx-large;
+        margin: 50px;
+        line-height: 1.6;
+    }
+</style>
+
+<head>
+    <title>Oral Exam</title>
+</head>
+
+<body>
+    <div class="questions">
+        <div id="setNum">Set Number</div><br>
+        <div id="q1">Question 1</div><br>
+        <div id="q2">Question 2</div><br>
+        <button id="cancel">Cancel</button>
+    </div>
+
+    <!-- <button id="show">Mostra</button> -->
+
+
+    <div class="footer">
+        <div class="tiles" id="tilesId"></div>
+        <input id="loadSet" type="file">
+        <button id="downloadLogs">Download</button>
+    </div>
+
+    <!-- <class name="tilesClass">
+        <svg width="400" height="180">
+            <rect id="t1" x="50" y="20" rx="20" ry="20" width="150" height="150"
+                style="fill:rgba(72, 255, 0, 0.692); stroke:black; stroke-width:5" />
+            <text x="50%" y="50%" text-anchor="middle" font-family="Verdana" font-size="35">1</text>
+        </svg>
+    </class> -->
+</body>
+<script src="script_question_sets_choosing.js"></script>
+
+</html>
