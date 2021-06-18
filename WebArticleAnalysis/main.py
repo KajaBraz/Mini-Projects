@@ -64,6 +64,11 @@ def get_details(my_url: str, desired_collocations: [str] = None, extra_stopwords
     text_insight['ner_text'] = ner_text
     text_insight['html_path'] = html_path
 
+    discovered_topics = text_analysis.discover_topics(10, lang, personalized_stopwords, my_text)
+    text_insight['topics'] = discovered_topics
+    print('topics')
+    pprint(discovered_topics)
+
     return text_insight
 
 

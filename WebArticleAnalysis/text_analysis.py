@@ -1,13 +1,20 @@
 from collections import Counter
+
+import spacy
 from nltk import word_tokenize, SnowballStemmer
+from sklearn.decomposition import LatentDirichletAllocation
+from sklearn.feature_extraction.text import CountVectorizer
 from textblob import TextBlob
 from wordcloud import WordCloud
 import many_stop_words
 import languages
 import re
-import spacy
+from spacy import displacy
 import xx_ent_wiki_sm
 import en_core_web_sm
+import en_core_web_lg
+
+import topics
 
 
 def get_stopwords(language_code: str, extra_stopwords: {str}) -> {str}:
@@ -65,7 +72,7 @@ def analyze_subjectivity(subjectivity: float) -> str:
     if subjectivity >= 0.66:
         return 'personal opinion'
     elif 0.66 > subjectivity > 0.33:
-        return 'equilibrium between personal opinion and factual information'
+        return 'balance between personal opinion and factual information'
     return 'factual information'
 
 
@@ -112,9 +119,40 @@ def get_and_save_ner(unprocessed_text: str, lang_code: str, doc_title: str):
     if html_title[-1] == '_':
         html_title = html_title[:-1]
     html_title = f'static/labelled_texts/html_{html_title}.html'
-    # ner_text = spacy.displacy.serve(doc, style='ent')
-    ner_text = spacy.displacy.render(doc, style='ent')
+    # displacy.serve(doc, style='ent')
+    ner_text = displacy.render(doc, style='ent')
     with open(html_title, 'w', encoding='utf-8') as html_file:
         html_file.write(ner_text)
 
     return entity_label_pairs, label_counts, ner_text, html_title
+
+
+def discover_topics(n: int, lang_code: str, extra_stopwords: {}, text: str):
+    # TODO change the algorithm as now it takes very long to obtain the results
+    """
+        Function that calculates similarity of words used in the given text with the provided topics
+    :param n: the number of topics
+    :param lang_code:
+    :param extra_stopwords:
+    :param text: text without noise
+    :return: list of tuples:
+        1st element - topic, cumulative score of top 5 words
+        2nd element - 5 most relevant words for a given topic
+    """
+    if lang_code == 'en':
+        nlp = spacy.load('en_core_web_lg')
+        tokens = set(nlp(text))
+
+        similarity_results = {}
+        similarity_pairs = {}
+        for topic in topics.topics:
+            similarity_results[topic] = {}
+            for token in tokens:
+                similarity_results[topic][token] = nlp(topic).similarity(token)
+            most_similar_tokens = sorted(similarity_results[topic].items(), key=lambda item: item[1], reverse=True)[:5]
+            top_5_similarity_sum = sum([similarity[1] for similarity in most_similar_tokens])
+            similarity_pairs[(topic, top_5_similarity_sum)] = [similarity[0] for similarity in most_similar_tokens]
+
+        most_similar = sorted(similarity_pairs.items(), key=lambda item: item[0][1], reverse=True)[:n]
+        return most_similar
+    return 'supported only for English'

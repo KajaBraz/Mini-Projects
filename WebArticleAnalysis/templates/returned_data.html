@@ -33,6 +33,8 @@
 <!--  <pre> {{data.label_counts}} </pre>-->
   <h3>LABELED TEXT</h3>
   {{data.ner_text | safe}}
+  <h3>DISCOVERED TOPICS</h3>
+  {{data.topics}}
 {% else %}
   <h3>No data</h3>
 {% endif %}
