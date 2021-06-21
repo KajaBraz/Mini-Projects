@@ -147,8 +147,9 @@ def discover_topics(n: int, lang_code: str, extra_stopwords: {}, text: str):
         similarity_pairs = {}
         for topic in topics.topics:
             similarity_results[topic] = {}
+            nlp_topic = nlp(topic)
             for token in tokens:
-                similarity_results[topic][token] = nlp(topic).similarity(token)
+                similarity_results[topic][token] = nlp_topic.similarity(token)
             most_similar_tokens = sorted(similarity_results[topic].items(), key=lambda item: item[1], reverse=True)[:5]
             top_5_similarity_sum = sum([similarity[1] for similarity in most_similar_tokens])
             similarity_pairs[(topic, top_5_similarity_sum)] = [similarity[0] for similarity in most_similar_tokens]
