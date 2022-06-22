@@ -6,7 +6,7 @@ en_core_web_lg==3.0.0
 Flask==1.1.2
 matplotlib==3.2.1
 gensim==3.8.3
-numpy==1.18.4
+numpy==1.22.0
 en_core_web_sm==3.0.0
 pandas==1.0.4
 requests==2.23.0
